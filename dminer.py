@@ -235,11 +235,11 @@ def screen(gpu_json, log_trex, log_gminer):
     th_log = []
 
     if trex == True:
-        td_log.append('T-Rex')
+        td_log.append('TRex')
         table_log = PrettyTable(td_log)
         th_log.append(log_trex)
         table_log.add_row(th_log)
-        table_log.align['T-Rex'] = "l"
+        table_log.align['TRex'] = "l"
 
     if gminer == True:
         td_log.append('GMiner')
@@ -249,7 +249,8 @@ def screen(gpu_json, log_trex, log_gminer):
         table_log.align['GMiner'] = "l"
 
     if trex == True and gminer == True:
-        table_log.align['T-Rex', 'GMiner'] = "l"
+        table_log.align['TRex', 'GMiner'] = "l"
+
     print(table_log)
         
 
