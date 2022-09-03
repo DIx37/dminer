@@ -144,7 +144,7 @@ def screen(gpu_json, log_trex, log_gminer):
 #          'gpu_target_temp_min',
 #          'gpu_target_temp_max',
           'Граф Част',
-          'sm Част',
+#          'sm Част',
           'Пам Част',
           'Видео Част',
           'Майнер',
@@ -162,7 +162,8 @@ def screen(gpu_json, log_trex, log_gminer):
 
     for gpu in gpu_json['GPU']:
         minor_number = gpu_json['GPU'][gpu]['minor_number']
-        product_name = gpu_json['GPU'][gpu]['product_name'][15:]
+#        product_name = gpu_json['GPU'][gpu]['product_name'][15:]
+        product_name = gpu_json['GPU'][gpu]['product_name']
 #        vbios_version = gpu_json['GPU'][gpu]['vbios_version']
 #        fan_speed = gpu_json['GPU'][gpu]['fan_speed']
 #        fb_memory_usage_total = gpu_json['GPU'][gpu]['fb_memory_usage']['total']
@@ -178,7 +179,7 @@ def screen(gpu_json, log_trex, log_gminer):
 #        gpu_target_temp_min = gpu_json['GPU'][gpu]['supported_gpu_target_temp']['gpu_target_temp_min']
 #        gpu_target_temp_max = gpu_json['GPU'][gpu]['supported_gpu_target_temp']['gpu_target_temp_max']
         graphics_clock = gpu_json['GPU'][gpu]['clocks']['graphics_clock']
-        sm_clock = gpu_json['GPU'][gpu]['clocks']['sm_clock']
+#        sm_clock = gpu_json['GPU'][gpu]['clocks']['sm_clock']
         mem_clock = gpu_json['GPU'][gpu]['clocks']['mem_clock']
         video_clock = gpu_json['GPU'][gpu]['clocks']['video_clock']
         process_name = gpu_json['GPU'][gpu]['processes']['process_name']
@@ -214,7 +215,7 @@ def screen(gpu_json, log_trex, log_gminer):
 #              gpu_target_temp_min,
 #              gpu_target_temp_max,
               graphics_clock,
-              sm_clock,
+#              sm_clock,
               mem_clock,
               video_clock,
               process_name,
