@@ -239,12 +239,14 @@ def screen(gpu_json, log_trex, log_gminer):
         table_log = PrettyTable(td_log)
         th_log.append(log_trex)
         table_log.add_row(th_log)
+        table_log.align['T-Rex'] = "l"
 
     if gminer == True:
         td_log.append('GMiner')
         table_log = PrettyTable(td_log)
         th_log.append(log_gminer)
         table_log.add_row(th_log)
+        table_log.align['GMiner'] = "l"
 
     print(table_log)
         
