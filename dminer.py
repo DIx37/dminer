@@ -1,13 +1,13 @@
-from colorama import init
-from termcolor import colored
+from prettytable import PrettyTable
 import xml.etree.ElementTree as ET
+from termcolor import colored
+from colorama import init
 from pprint import pprint
+from time import sleep
 import subprocess
 import sys
 import os
 import re
-from prettytable import PrettyTable
-from time import sleep
 
 
 # Вызов nvidia-smi для получения всей информаци об видеокартах
@@ -108,8 +108,8 @@ def read_log_trex():
 
 
 def read_log_gminer():
-#    f = open('/var/log/miner/gminer/gminer.log')
-    f = open('/home/user/test/gminer.log')
+    f = open('/var/log/miner/gminer/gminer.log')
+#    f = open('/home/user/test/gminer.log')
     log = ""
     res = ""
     for line in f:
@@ -254,7 +254,7 @@ def screen(gpu_json, log_trex, log_gminer):
              ]
         table_gminer.add_row(th_gminer)
 
-        print(table_gminer)
+        print(f"\n{table_gminer}")
 
 
 while True:
@@ -264,17 +264,3 @@ while True:
     log_gminer = read_log_gminer()
     screen(gpu_json, log_trex, log_gminer)
     sleep(10)
-
-
-
-
-
-
-
-
-#С помощью nvidia-smi собрать инфу об видеокартах, их количестве и какой майнер запущен
-#    f = open('/var/log/miner/t-rex/t-rex.log')
-
-#    for line in f:
-#        match_ok = re.findall("OK", str(line))
-#        match_time = re.findall("Uptime", str(line))
