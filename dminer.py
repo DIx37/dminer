@@ -159,6 +159,7 @@ def screen(gpu_json, log_trex, log_gminer):
          ]
 
     table = PrettyTable(td)
+    table.align['Карта'] = "l"
 
     for gpu in gpu_json['GPU']:
         minor_number = gpu_json['GPU'][gpu]['minor_number']
