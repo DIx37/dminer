@@ -148,7 +148,7 @@ def screen(gpu_json, log_trex, log_gminer):
           'Пам Част',
           'Видео Част',
           'Майнер',
-          'power_state',
+          'PS',
 #          'power_management',
           'power_draw',
           'power_limit',
@@ -229,36 +229,38 @@ def screen(gpu_json, log_trex, log_gminer):
              ]
         table.add_row(th)
 
-    print(table)
-    gminer = True
+#    print(table)
+    table_all = table
+#    gminer = True
     if trex == True:
         th_trex = [
-              'T-Rex'
-             ]
+                   'T-Rex'
+                  ]
         table_trex = PrettyTable(th_trex)
 
         th_trex = [
-              log_trex
-             ]
+                   log_trex
+                  ]
         table_trex.add_row(th_trex)
 
-        print(table_trex)
+#        print(table_trex)
+    table_all += f"\n{table_trex}"
     if gminer == True:
         th_gminer = [
-              'GMiner'
-             ]
+                     'GMiner'
+                    ]
         table_gminer = PrettyTable(th_gminer)
 
         th_gminer = [
-              log_gminer
-             ]
+                     log_gminer
+                    ]
         table_gminer.add_row(th_gminer)
 
-        print(f"\n{table_gminer}")
-
+#        print(table_gminer)
+        table_all += table_gminer
+print(table_all)
 
 while True:
-#    os.system('clear')
     gpu_json = get_videocard()
     log_trex = read_log_trex()
     log_gminer = read_log_gminer()
