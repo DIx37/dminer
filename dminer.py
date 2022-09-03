@@ -258,7 +258,7 @@ def screen(gpu_json, log_trex, log_gminer):
 
 #        print(table_gminer)
         table_all += table_gminer
-print(table_all)
+    print(table_all)
 
 while True:
     gpu_json = get_videocard()
