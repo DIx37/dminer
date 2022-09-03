@@ -101,7 +101,7 @@ def read_log_trex():
         match_time = re.findall("Uptime", str(line))
         log += line
     log_split = log.split("\n")
-    logs = log_split[-15:]
+    logs = log_split[-25:]
     for l in logs:
        res += f"{l}\n"
     return res
@@ -115,7 +115,7 @@ def read_log_gminer():
     for line in f:
         log += line
     log_split = log.split("\n")
-    logs = log_split[-15:]
+    logs = log_split[-25:]
     for l in logs:
        res += f"{l}\n"
     return res
@@ -230,30 +230,7 @@ def screen(gpu_json, log_trex, log_gminer):
         table.add_row(th)
 
     print(table)
-#    if trex == True:
-#        th_trex = [
-#                   'T-Rex'
-#                  ]
-#        table_trex = PrettyTable(th_trex)
 
-#        th_trex = [
-#                   log_trex
-#                  ]
-#        table_trex.add_row(th_trex)
-
-#        print(table_trex)
-#    if gminer == True:
-#        th_gminer = [
-#                     'GMiner'
-#                    ]
-#        table_gminer = PrettyTable(th_gminer)
-
-#        th_gminer = [
-#                     log_gminer
-#                    ]
-#        table_gminer.add_row(th_gminer)
-
-#        print(table_gminer)
     td_log = []
     th_log = []
 
