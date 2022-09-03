@@ -126,7 +126,7 @@ def screen(gpu_json, log_trex, log_gminer):
 
     print(f"Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
-    th = [
+    td = [
           '№',
           'Карта',
 #          'vbios_version',
@@ -158,7 +158,7 @@ def screen(gpu_json, log_trex, log_gminer):
 #          'max_power_limit'
          ]
 
-    table = PrettyTable(th)
+    table = PrettyTable(td)
 
     for gpu in gpu_json['GPU']:
         minor_number = gpu_json['GPU'][gpu]['minor_number']
@@ -229,36 +229,40 @@ def screen(gpu_json, log_trex, log_gminer):
              ]
         table.add_row(th)
 
-#    print(table)
-    table_all = table
-#    gminer = True
-    if trex == True:
-        th_trex = [
-                   'T-Rex'
-                  ]
-        table_trex = PrettyTable(th_trex)
+    print(table)
+#    if trex == True:
+#        th_trex = [
+#                   'T-Rex'
+#                  ]
+#        table_trex = PrettyTable(th_trex)
 
-        th_trex = [
-                   log_trex
-                  ]
-        table_trex.add_row(th_trex)
+#        th_trex = [
+#                   log_trex
+#                  ]
+#        table_trex.add_row(th_trex)
 
 #        print(table_trex)
-    table_all += f"\n{table_trex}"
-    if gminer == True:
-        th_gminer = [
-                     'GMiner'
-                    ]
-        table_gminer = PrettyTable(th_gminer)
+#    if gminer == True:
+#        th_gminer = [
+#                     'GMiner'
+#                    ]
+#        table_gminer = PrettyTable(th_gminer)
 
-        th_gminer = [
-                     log_gminer
-                    ]
-        table_gminer.add_row(th_gminer)
+#        th_gminer = [
+#                     log_gminer
+#                    ]
+#        table_gminer.add_row(th_gminer)
 
 #        print(table_gminer)
-        table_all += table_gminer
-    print(table_all)
+    td_log = []
+    th_log = []
+    if trex == True:
+        td_log.append('T-Rex')
+        table_log = PrettyTable(td_log)
+        th_log.append(log_trex)
+        table_log.add_row(th_log)
+    print(table_log)
+        
 
 while True:
     gpu_json = get_videocard()
