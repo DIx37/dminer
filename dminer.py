@@ -255,6 +255,7 @@ def screen(gpu_json, log_trex, log_gminer):
     td_log = ['T-Rex', 'GMiner']
     table_log = PrettyTable(td_log)
     th_log = [log_trex, log_gminer]
+    table_log.add_row(th_log)
     table_log.align['T-Rex'] = "l"
     table_log.align['GMiner'] = "l"
 
