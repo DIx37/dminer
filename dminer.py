@@ -256,11 +256,19 @@ def screen(gpu_json, log_trex, log_gminer):
 #        print(table_gminer)
     td_log = []
     th_log = []
+
     if trex == True:
         td_log.append('T-Rex')
         table_log = PrettyTable(td_log)
         th_log.append(log_trex)
         table_log.add_row(th_log)
+
+    if gminer == True:
+        td_log.append('GMiner')
+        table_log = PrettyTable(td_log)
+        th_log.append(log_gminer)
+        table_log.add_row(th_log)
+
     print(table_log)
         
 
