@@ -98,7 +98,7 @@ def read_log_trex():
     res = ""
     for line in f:
         # GPU #.*: .* - .* MH/s, [T:.*C, P:.*W, F:.*%, E:.*kH/W], .*/.* R:.*% I:.*%
-        match_hash = re.findall('GPU #.*: .* - .* MH/s, [T:.*C, P:.*W, F:.*%, E:.*kH/W], .*/.* R:.*% I:.*%', str(line))
+        match_hash = re.findall('GPU #.*: .* - .* MH/s, \[T:.*C, P:.*W, F:.*%, E:.*kH/W], .*/.* R:.*% I:.*%', str(line))
         print(match_hash)
         sleep(1)
         log += line
