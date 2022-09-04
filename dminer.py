@@ -107,6 +107,8 @@ def read_log_trex(gpu_json):
         if i > gpu_json['number_line_log_trex']:
             gpu_json['number_line_log_trex'] = i
             print("Читаю новые строки")
+            print(f"JSON: {gpu_json['number_line_log_trex']}")
+            print(f"    i: {i}")
             sleep(2)
         else:
             print("Всё прочитано")
