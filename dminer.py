@@ -107,9 +107,11 @@ def read_log_trex(gpu_json):
         if i > gpu_json['number_line_log_trex']:
             gpu_json['number_line_log_trex'] = i
             match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
-            print(match_hash)
-            if i > 8200:
-                sleep(2)
+            # print(match_hash)
+            if len(match_hash) > 0:
+                match_numner_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
+                match_numner_gpu = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
+                gpu_json['GPU'][match_numner_gpu]['speed_log_trex'] = match_numner_gpu
     # numner_gpu = {
     #               "0": 0,
     #               "1": 0,
@@ -194,7 +196,8 @@ def screen(gpu_json, log_trex, log_gminer):
 #          'default_power_limit',
 #          'enforced_power_limit',
 #          'min_power_limit',
-#          'max_power_limit'
+#          'max_power_limit',
+         'TRex Hash'
          ]
 
     table = PrettyTable(td)
@@ -239,6 +242,7 @@ def screen(gpu_json, log_trex, log_gminer):
 #        enforced_power_limit = gpu_json['GPU'][gpu]['power_readings']['enforced_power_limit']
 #        min_power_limit = gpu_json['GPU'][gpu]['power_readings']['min_power_limit']
 #        max_power_limit = gpu_json['GPU'][gpu]['power_readings']['max_power_limit']
+        speed_log_trex = gpu_json['GPU'][gpu]['speed_log_trex']
 
         th = [
               minor_number,
@@ -268,7 +272,8 @@ def screen(gpu_json, log_trex, log_gminer):
 #              default_power_limit,
 #              enforced_power_limit,
 #              min_power_limit,
-#              max_power_limit
+#              max_power_limit,
+              speed_log_trex
              ]
         table.add_row(th)
 
