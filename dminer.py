@@ -109,10 +109,8 @@ def read_log_trex(gpu_json):
             print("Читаю новые строки")
             print(f"JSON: {gpu_json['number_line_log_trex']}")
             print(f"    i: {i}")
-            sleep(2)
         else:
             print("Всё прочитано")
-            sleep(1)
     # numner_gpu = {
     #               "0": 0,
     #               "1": 0,
