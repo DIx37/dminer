@@ -99,7 +99,7 @@ def count_lines(file, chunk_size=1<<13):
 
 def read_log_trex():
     f = open('/var/log/miner/t-rex/t-rex.log')
-    # print(count_lines(f))
+    print(count_lines(f))
     log = ""
     res = ""
     numner_gpu = {
