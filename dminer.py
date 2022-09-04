@@ -28,8 +28,6 @@ def get_list_videocard():
     gpu_json['timestamp'] = root.find('timestamp').text
     gpu_json['driver_version'] = root.find('driver_version').text
     gpu_json['cuda_version'] = root.find('cuda_version').text
-    gpu_json['number_line_log_trex'] = 0
-    gpu_json['number_line_log_gminer'] = 0
     gpu_json['GPU'] = {}
     gpu_all = root.findall('gpu')
     for gpu in gpu_all:
