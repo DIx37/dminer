@@ -185,10 +185,10 @@ def screen(gpu_json, log_trex, log_gminer):
         video_clock = gpu_json['GPU'][gpu]['clocks']['video_clock']
         process_name = gpu_json['GPU'][gpu]['processes']['process_name']
         if "rex" in process_name:
-            trex = True
+            trex = False
             process_name = "T-Rex"
         if "gminer" in process_name:
-            gminer = False
+            gminer = True
             process_name = "GMiner"
         power_state = gpu_json['GPU'][gpu]['power_readings']['power_state']
 #        power_management = gpu_json['GPU'][gpu]['power_readings']['power_management']
