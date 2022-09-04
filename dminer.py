@@ -109,6 +109,7 @@ def read_log_trex(gpu_json):
             match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
             print(match_hash)
         else:
+            match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
             print(match_hash)
             print("Нет новых строк")
     # numner_gpu = {
