@@ -117,7 +117,8 @@ def read_log_trex():
                   "10": 0,
                   "11": 0
                  }
-    for line in f:
+    # for line in f:
+    for i, line in enumerate(f):
         # GPU #.*: .* - .* MH/s, [T:.*C, P:.*W, F:.*%, E:.*kH/W], .*/.* R:.*% I:.*%
         match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
         # print(line)
@@ -132,6 +133,7 @@ def read_log_trex():
             numner_gpu[match_numner_gpu] = match_speed_hash
             # print(numner_gpu)
             # sleep(2)
+            print(i)
 
         log += line
     log_split = log.split("\n")
