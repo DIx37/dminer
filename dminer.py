@@ -109,9 +109,9 @@ def read_log_trex(gpu_json):
             match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
             # print(match_hash)
             if len(match_hash) > 0:
-                match_numner_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
-                match_numner_gpu = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
-                gpu_json['GPU'][match_numner_gpu]['speed_log_trex'] = match_numner_gpu
+                match_number_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
+                match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
+                gpu_json['GPU'][match_number_gpu]['speed_log_trex'] = match_speed_hash
     # numner_gpu = {
     #               "0": 0,
     #               "1": 0,
