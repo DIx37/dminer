@@ -108,7 +108,6 @@ def read_log_trex(gpu_json):
     for i, line in enumerate(f):
         if i > gpu_json['number_line_log_trex']:
             gpu_json['number_line_log_trex'] = i
-            print(i)
     # numner_gpu = {
     #               "0": 0,
     #               "1": 0,
@@ -142,6 +141,8 @@ def read_log_trex(gpu_json):
     logs = log_split[-35:]
     for l in logs:
        res += f"{l}\n"
+    print(gpu_json['number_line_log_trex'])
+    sleep(3)
     return res, gpu_json
 
 
