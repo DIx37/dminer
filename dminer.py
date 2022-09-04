@@ -94,6 +94,7 @@ def get_list_videocard():
 
 def read_log_trex():
     f = open('/var/log/miner/t-rex/t-rex.log')
+    print(len(log))
     log = ""
     res = ""
     numner_gpu = {
@@ -123,8 +124,8 @@ def read_log_trex():
             # print(f"Speed : {match_speed_hash}")
             # sleep(2)
             numner_gpu[match_numner_gpu] = match_speed_hash
-            print(numner_gpu)
-            sleep(2)
+            # print(numner_gpu)
+            # sleep(2)
 
         log += line
     log_split = log.split("\n")
