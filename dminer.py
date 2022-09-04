@@ -118,6 +118,7 @@ def read_log_trex(gpu_json):
                   "11": 0
                  }
     for i, line in enumerate(f):
+        print(f"Сейчас i:{i} GPU:{gpu_json['number_line_log_trex']}")
         if i > gpu_json['number_line_log_trex']:
             match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
             if len(match_hash) > 0:
