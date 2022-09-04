@@ -104,7 +104,6 @@ def read_log_trex(gpu_json):
     log = ""
     res = ""
     numner_gpu = {
-                  "number_line": 0,
                   "0": 0,
                   "1": 0,
                   "2": 0,
@@ -119,13 +118,13 @@ def read_log_trex(gpu_json):
                   "11": 0
                  }
     for i, line in enumerate(f):
-        if i > numner_gpu['number_line']:
+        if i > gpu_json['number_line_log_trex']:
             match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
             if len(match_hash) > 0:
                 match_numner_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
                 match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
                 numner_gpu[match_numner_gpu] = match_speed_hash
-                numner_gpu['number_line'] = i
+                gpu_json['number_line_log_trex'] = i
         else:
             print("Лог уже прочитан")
 
