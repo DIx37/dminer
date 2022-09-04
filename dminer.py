@@ -290,7 +290,7 @@ def screen(gpu_json, log_trex, log_gminer):
 
 while True:
     gpu_json = get_videocard()
-    log_trex = read_log_trex()
+    log_trex, number_gpu_trex = read_log_trex()
     log_gminer = read_log_gminer()
     screen(gpu_json, log_trex, log_gminer)
     sleep(10)
