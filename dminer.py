@@ -31,10 +31,13 @@ def get_list_videocard():
     gpu_json['timestamp'] = root.find('timestamp').text
     gpu_json['driver_version'] = root.find('driver_version').text
     gpu_json['cuda_version'] = root.find('cuda_version').text
+    gpu_json['number_line_log_trex'] = 0
+    gpu_json['number_line_log_gminer'] = 0
     gpu_json['GPU'] = {}
     gpu_all = root.findall('gpu')
     for gpu in gpu_all:
         gpu_json['GPU'][gpu.find('minor_number').text] = {
+                                                  'speed_log_trex': 0,
                                                   'minor_number': gpu.find('minor_number').text,
                                                   'product_name': gpu.find('product_name').text,
                                                   'vbios_version': gpu.find('vbios_version').text,
@@ -97,7 +100,7 @@ def count_lines(file, chunk_size=1<<13):
             for chunk in iter(lambda: file.read(chunk_size), ''))
 
 
-def read_log_trex():
+def read_log_trex(gpu_json):
     f = open('/var/log/miner/t-rex/t-rex.log')
     print(count_lines(f))
     f = open('/var/log/miner/t-rex/t-rex.log')
@@ -134,7 +137,7 @@ def read_log_trex():
     logs = log_split[-35:]
     for l in logs:
        res += f"{l}\n"
-    return res, numner_gpu
+    return res, gpu_json
 
 
 def read_log_gminer():
@@ -290,7 +293,7 @@ def screen(gpu_json, log_trex, log_gminer):
 
 while True:
     gpu_json = get_videocard()
-    log_trex, number_gpu_trex = read_log_trex()
+    log_trex, gpu_json = read_log_trex(gpu_json)
     log_gminer = read_log_gminer()
     screen(gpu_json, log_trex, log_gminer)
     sleep(10)
