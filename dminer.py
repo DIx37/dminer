@@ -94,7 +94,7 @@ def get_list_videocard():
 
 def read_log_trex():
     f = open('/var/log/miner/t-rex/t-rex.log')
-    print(len(f))
+    print(type(f))
     log = ""
     res = ""
     numner_gpu = {
