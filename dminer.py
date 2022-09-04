@@ -101,8 +101,7 @@ def read_log_trex(gpu_json):
     f = open('/var/log/miner/t-rex/t-rex.log')
     log = ""
     res = ""
-    print('number_line_log_trex' in gpu_json)
-    if 'number_line_log_trex' in gpu_json == False:
+    if ('number_line_log_trex' in gpu_json) == False:
         gpu_json['number_line_log_trex'] = 0
     print(gpu_json['number_line_log_trex'])
     sleep(2)
