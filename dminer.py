@@ -103,34 +103,34 @@ def read_log_trex(gpu_json):
     f = open('/var/log/miner/t-rex/t-rex.log')
     log = ""
     res = ""
-    numner_gpu = {
-                  "0": 0,
-                  "1": 0,
-                  "2": 0,
-                  "3": 0,
-                  "4": 0,
-                  "5": 0,
-                  "6": 0,
-                  "7": 0,
-                  "8": 0,
-                  "9": 0,
-                  "10": 0,
-                  "11": 0
-                 }
-    for i, line in enumerate(f):
-        if i > gpu_json['number_line_log_trex']:
-            match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
-            if len(match_hash) > 0:
-                match_numner_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
-                match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
-                numner_gpu[match_numner_gpu] = match_speed_hash
-                gpu_json['number_line_log_trex'] = i
-        else:
-            print("Лог уже прочитан")
-            print(f"Сейчас i:{i} GPU:{gpu_json['number_line_log_trex']}")
-            sleep(10)
-
+    for line in f:
         log += line
+    # numner_gpu = {
+    #               "0": 0,
+    #               "1": 0,
+    #               "2": 0,
+    #               "3": 0,
+    #               "4": 0,
+    #               "5": 0,
+    #               "6": 0,
+    #               "7": 0,
+    #               "8": 0,
+    #               "9": 0,
+    #               "10": 0,
+    #               "11": 0
+    #              }
+    # for i, line in enumerate(f):
+    #     if i > gpu_json['number_line_log_trex']:
+    #         match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
+    #         if len(match_hash) > 0:
+                # match_numner_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
+                # match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
+                # numner_gpu[match_numner_gpu] = match_speed_hash
+                # gpu_json['number_line_log_trex'] = i
+    #     else:
+    #         print("Лог уже прочитан")
+    #         print(f"Сейчас i:{i} GPU:{gpu_json['number_line_log_trex']}")
+    #         sleep(10)
     log_split = log.split("\n")
     logs = log_split[-35:]
     for l in logs:
@@ -291,7 +291,7 @@ def screen(gpu_json, log_trex, log_gminer):
     elif gminer == True:
         table_log.align['GMiner'] = "l"
 
-    # print(table_log)
+    print(table_log)
         
 
 gpu_json = {}
