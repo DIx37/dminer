@@ -25,7 +25,6 @@ def get_videocard():
 
 # Преобразование полученного xml в json
 def get_list_videocard():
-    gpu_json = {}
     tree = ET.parse("/home/user/dminer/xml/nvidia.xml")
     root = tree.getroot()
     gpu_json['timestamp'] = root.find('timestamp').text
@@ -290,6 +289,8 @@ def screen(gpu_json, log_trex, log_gminer):
 
     print(table_log)
         
+
+gpu_json = {}
 
 while True:
     gpu_json = get_videocard()
