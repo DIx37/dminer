@@ -92,15 +92,14 @@ def get_list_videocard():
     return gpu_json
 
 
-def count_lines(filename, chunk_size=1<<13):
-    with open(filename) as file:
-        return sum(chunk.count('\n')
-                   for chunk in iter(lambda: file.read(chunk_size), ''))
+def count_lines(file, chunk_size=1<<13):
+    return sum(chunk.count('\n')
+            for chunk in iter(lambda: file.read(chunk_size), ''))
 
 
 def read_log_trex():
     f = open('/var/log/miner/t-rex/t-rex.log')
-    print(count_lines('/var/log/miner/t-rex/t-rex.log'))
+    print(count_lines(f))
     log = ""
     res = ""
     numner_gpu = {
