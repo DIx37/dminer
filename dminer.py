@@ -104,6 +104,7 @@ def read_log_trex():
     log = ""
     res = ""
     numner_gpu = {
+                  "number_line": 0,
                   "0": 0,
                   "1": 0,
                   "2": 0,
@@ -117,30 +118,23 @@ def read_log_trex():
                   "10": 0,
                   "11": 0
                  }
-    # for line in f:
     for i, line in enumerate(f):
-        # GPU #.*: .* - .* MH/s, [T:.*C, P:.*W, F:.*%, E:.*kH/W], .*/.* R:.*% I:.*%
-        match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
-        # print(line)
-        if len(match_hash) > 0:
-            # print(match_hash)
-            match_numner_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
-            match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
-            # speed_hash.append()
-            # print(f"GPU   : {match_numner_gpu}")
-            # print(f"Speed : {match_speed_hash}")
-            # sleep(2)
-            numner_gpu[match_numner_gpu] = match_speed_hash
-            # print(numner_gpu)
-            # sleep(2)
-            print(i)
+        if i > numner_gpu['number_line']:
+            match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
+            if len(match_hash) > 0:
+                match_numner_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
+                match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
+                numner_gpu[match_numner_gpu] = match_speed_hash
+                numner_gpu['number_line'] = i
+        else:
+            print("Лог уже прочитан")
 
         log += line
     log_split = log.split("\n")
     logs = log_split[-35:]
     for l in logs:
        res += f"{l}\n"
-    return res
+    return res, numner_gpu
 
 
 def read_log_gminer():
