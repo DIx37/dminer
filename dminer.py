@@ -100,7 +100,7 @@ def read_log_trex():
         # GPU #.*: .* - .* MH/s, [T:.*C, P:.*W, F:.*%, E:.*kH/W], .*/.* R:.*% I:.*%
         match_hash = re.findall('GPU #.*: .* - .* MH/s, [T:.*C, P:.*W, F:.*%, E:.*kH/W], .*/.* R:.*% I:.*%', str(line))
         print(match_hash)
-        sleep(20)
+        sleep(1)
         log += line
     log_split = log.split("\n")
     logs = log_split[-35:]
