@@ -101,11 +101,11 @@ def read_log_trex():
         match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
         print(line)
         if len(match_hash) > 0:
-            print(match_hash)
-            match_numner_gpu = re.findall('#.*:', str(match_hash))
-            match_speed_hash = re.findall(' - .* MH', str(match_hash))
-            print(match_numner_gpu[0][1:-1])
-            print(match_speed_hash[0][3:-3])
+            # print(match_hash)
+            match_numner_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
+            match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:-3]
+            print(match_numner_gpu)
+            print(match_speed_hash)
             sleep(5)
         log += line
     log_split = log.split("\n")
