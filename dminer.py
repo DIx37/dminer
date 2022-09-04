@@ -285,7 +285,7 @@ def screen(gpu_json, log_trex, log_gminer):
     elif gminer == True:
         table_log.align['GMiner'] = "l"
 
-    print(table_log)
+    # print(table_log)
         
 
 gpu_json = {}
