@@ -103,8 +103,10 @@ def read_log_trex(gpu_json):
     f = open('/var/log/miner/t-rex/t-rex.log')
     log = ""
     res = ""
-    for line in f:
-        log += line
+    print(gpu_json['number_line_log_trex'])
+    for i, line in enumerate(f):
+        if i > gpu_json['number_line_log_trex']:
+            gpu_json['number_line_log_trex'] = i
     # numner_gpu = {
     #               "0": 0,
     #               "1": 0,
@@ -131,13 +133,13 @@ def read_log_trex(gpu_json):
     #         print("Лог уже прочитан")
     #         print(f"Сейчас i:{i} GPU:{gpu_json['number_line_log_trex']}")
     #         sleep(10)
+
+    for line in f:
+        log += line
     log_split = log.split("\n")
     logs = log_split[-35:]
     for l in logs:
        res += f"{l}\n"
-
-    # print(f"Сейчас i:{i} GPU:{gpu_json['number_line_log_trex']}")
-    # sleep(2)
     return res, gpu_json
 
 
@@ -291,7 +293,7 @@ def screen(gpu_json, log_trex, log_gminer):
     elif gminer == True:
         table_log.align['GMiner'] = "l"
 
-    print(table_log)
+    # print(table_log)
         
 
 gpu_json = {}
