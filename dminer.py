@@ -97,8 +97,10 @@ def read_log_trex():
     log = ""
     res = ""
     for line in f:
-        match_ok = re.findall("OK", str(line))
-        match_time = re.findall("Uptime", str(line))
+        # GPU #.*: .* - .* MH/s, [T:.*C, P:.*W, F:.*%, E:.*kH/W], .*/.* R:.*% I:.*%
+        match_hash = re.findall('GPU #.*: .* - .* MH/s, [T:.*C, P:.*W, F:.*%, E:.*kH/W], .*/.* R:.*% I:.*%', str(line))
+        print(match_hash)
+        sleep(20)
         log += line
     log_split = log.split("\n")
     logs = log_split[-35:]
