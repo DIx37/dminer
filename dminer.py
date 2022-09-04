@@ -14,9 +14,7 @@ import re
 def get_videocard():
 #    print("Проверка списка видеокарт")
     res = os.system("nvidia-smi -x -q > /home/user/dminer/xml/nvidia.xml")
-    if res == 0:
-        print("Проверка успешна, результат в файле /home/user/dminer/xml/nvidia.xml")
-    else:
+    if res != 0:
         print("Ошибка при выполнении команды 'nvidia-smi -x -q', проверьте её вывод. Завершение скрипта.")
         sys.exit()
     gpu_json = get_list_videocard()
