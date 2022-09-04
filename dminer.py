@@ -136,8 +136,8 @@ def read_log_trex(gpu_json):
     for l in logs:
        res += f"{l}\n"
 
-    print(f"Сейчас i:{i} GPU:{gpu_json['number_line_log_trex']}")
-    sleep(2)
+    # print(f"Сейчас i:{i} GPU:{gpu_json['number_line_log_trex']}")
+    # sleep(2)
     return res, gpu_json
 
 
