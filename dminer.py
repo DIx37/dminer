@@ -127,6 +127,8 @@ def read_log_trex(gpu_json):
                 gpu_json['number_line_log_trex'] = i
         else:
             print("Лог уже прочитан")
+            print(f"Сейчас i:{i} GPU:{gpu_json['number_line_log_trex']}")
+            sleep(10)
 
         log += line
     log_split = log.split("\n")
@@ -135,7 +137,7 @@ def read_log_trex(gpu_json):
        res += f"{l}\n"
 
     print(f"Сейчас i:{i} GPU:{gpu_json['number_line_log_trex']}")
-    sleep(1)
+    sleep(2)
     return res, gpu_json
 
 
