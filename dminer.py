@@ -233,33 +233,27 @@ def screen(gpu_json, log_trex, log_gminer):
 
     print(table)
 
-#    td_log = []
-#    th_log = []
-
-#    if trex == True:
-#        td_log.append('TRex')
-
-#    if gminer == True:
-#        td_log.append('GMiner')
-
-#    table_log = PrettyTable(td_log)
-
-#    if trex == True:
-#        th_log.append(log_trex)
-#        table_log.add_row(th_log)
-#        table_log.align['TRex'] = "l"
-
-#    if gminer == True:
-#        th_log.append(log_gminer)
-#        table_log.add_row(th_log)
-#        table_log.align['GMiner'] = "l"
-
-    td_log = ['T-Rex', 'GMiner']
+    if trex == True and gminer == True:
+        td_log = ['T-Rex', 'GMiner']
+    elif trex == True:
+        td_log = ['T-Rex']
+    elif gminer == True:
+        td_log = ['GMiner']
     table_log = PrettyTable(td_log)
-    th_log = [log_trex, log_gminer]
+    if trex == True and gminer == True:
+        th_log = [log_trex, log_gminer]
+    elif trex == True:
+        th_log = [log_trex]
+    elif gminer == True:
+        th_log = [log_gminer]
     table_log.add_row(th_log)
-    table_log.align['T-Rex'] = "l"
-    table_log.align['GMiner'] = "l"
+    if trex == True and gminer == True:
+        table_log.align['T-Rex'] = "l"
+        table_log.align['GMiner'] = "l"
+    elif trex == True:
+        table_log.align['T-Rex'] = "l"
+    elif gminer == True:
+        table_log.align['GMiner'] = "l"
 
     print(table_log)
         
