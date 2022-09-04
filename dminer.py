@@ -96,6 +96,20 @@ def read_log_trex():
     f = open('/var/log/miner/t-rex/t-rex.log')
     log = ""
     res = ""
+    numner_gpu = {
+                  "0": 0,
+                  "1": 0,
+                  "2": 0,
+                  "3": 0,
+                  "4": 0,
+                  "5": 0,
+                  "6": 0,
+                  "7": 0,
+                  "8": 0,
+                  "9": 0,
+                  "10": 0,
+                  "11": 0
+                 }
     for line in f:
         # GPU #.*: .* - .* MH/s, [T:.*C, P:.*W, F:.*%, E:.*kH/W], .*/.* R:.*% I:.*%
         match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
@@ -104,9 +118,14 @@ def read_log_trex():
             # print(match_hash)
             match_numner_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
             match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:-3]
-            print(f"GPU   : {match_numner_gpu}")
-            print(f"Speed : {match_speed_hash}")
+            # speed_hash.append()
+            # print(f"GPU   : {match_numner_gpu}")
+            # print(f"Speed : {match_speed_hash}")
+            # sleep(2)
+            numner_gpu[match_numner_gpu] = match_speed_hash
+            print(numner_gpu)
             sleep(2)
+
         log += line
     log_split = log.split("\n")
     logs = log_split[-35:]
