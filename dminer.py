@@ -1,4 +1,3 @@
-from msilib.schema import Error
 from prettytable import PrettyTable
 import xml.etree.ElementTree as ET
 from termcolor import colored
