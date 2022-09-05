@@ -11,12 +11,11 @@ import sys
 import os
 import re
 
-
 logger = logging.getLogger(__name__)
+logging.basicConfig(filename='dminer.log', level=logging.DEBUG)
 handler = StreamHandler(stream=sys.stdout)
 handler.setFormatter(Formatter(fmt='[%(asctime)s: %(levelname)s] %(message)s'))
 logger.addHandler(handler)
-logging.basicConfig(filename='dminer.log', level=logging.DEBUG)
 
 
 # Вызов nvidia-smi для получения всей информаци об видеокартах
@@ -38,7 +37,7 @@ def processes_check(gpu):
                      'type': gpu.find('processes')[1].find('type').text,
                      'process_name': gpu.find('processes')[1].find('process_name').text
                     }
-    except:
+    except Exception as err:
         logger.exception(err)
         processes = {
                      'gpu_instance_id': "None",
@@ -48,6 +47,15 @@ def processes_check(gpu):
                      'process_name': "None"
                     }
     return processes
+
+
+def speed_log_hash_check(gpu_json, gpu):
+    try:
+        speed_log_hash = gpu_json['GPU'][gpu]['speed_log_hash']
+    except Exception as err:
+        logger.exception(err)
+        speed_log_hash = 0
+    return speed_log_hash
 
 
 # Преобразование полученного xml в json
@@ -108,6 +116,7 @@ def get_list_videocard():
                                                              'video_clock': gpu.find('clocks').find('video_clock').text
                                                             },
                                                   'processes': processes_check(gpu),
+                                                  'speed_log_hash': speed_log_hash_check(gpu_json, gpu)
                                                   }
     return gpu_json
 
@@ -181,7 +190,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.533    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.534    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
