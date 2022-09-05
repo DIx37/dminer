@@ -60,7 +60,7 @@ def speed_log_hash_check(gpu_json, gpu):
 
 
 # Преобразование полученного xml в json
-def get_list_videocard():
+def get_list_videocard(gpu_json):
     tree = ET.parse("/home/user/dminer/xml/nvidia.xml")
     root = tree.getroot()
     gpu_json['timestamp'] = root.find('timestamp').text
@@ -191,7 +191,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.537    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.538    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
