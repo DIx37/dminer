@@ -109,6 +109,7 @@ def read_log_trex(gpu_json):
                 match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
                 gpu_json['GPU'][match_number_gpu]['speed_log_hash'] = match_speed_hash
 
+    f = open('/var/log/miner/t-rex/t-rex.log')
     for line in f:
         log += line
     log_split = log.split("\n")
@@ -124,8 +125,6 @@ def read_log_gminer(gpu_json):
     res = ""
     if ('number_line_log_gminer' in gpu_json) == False:
         gpu_json['number_line_log_gminer'] = 0
-    if ('speed_log_hash' in gpu_json) == False:
-        gpu_json['speed_log_hash'] = 0
     for i, line in enumerate(f):
         if i > gpu_json['number_line_log_gminer']:
             gpu_json['number_line_log_gminer'] = i
@@ -157,7 +156,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.514    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.515    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
@@ -238,8 +237,8 @@ def screen(gpu_json, log_trex, log_gminer):
 #        enforced_power_limit = gpu_json['GPU'][gpu]['power_readings']['enforced_power_limit']
 #        min_power_limit = gpu_json['GPU'][gpu]['power_readings']['min_power_limit']
 #        max_power_limit = gpu_json['GPU'][gpu]['power_readings']['max_power_limit']
-        if ('speed_log_hash' in gpu_json) == False:
-            gpu_json['speed_log_hash'] = 0
+        if ('speed_log_hash' in gpu_json['GPU'][gpu]) == False:
+            gpu_json['GPU'][gpu]['speed_log_hash'] = 0
         speed_log_hash = gpu_json['GPU'][gpu]['speed_log_hash']
 
         th = [
