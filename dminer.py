@@ -5,9 +5,13 @@ from colorama import init
 from pprint import pprint
 from time import sleep
 import subprocess
+import logging
 import sys
 import os
 import re
+
+
+logger = logging.getLogger(__name__)
 
 
 # Вызов nvidia-smi для получения всей информаци об видеокартах
@@ -159,8 +163,9 @@ def read_log_gminer(gpu_json):
                     if match_hash[2] != "MH":
                         match_number_gpu = match_hash[1]
                         match_speed_hash = f"{match_hash[3]} {match_hash[4]}/s"
+                        logger.debug(f"Записываем найденную скорость {match_speed_hash} к GPU #{match_number_gpu}")
                         gpu_json['GPU'][match_number_gpu]['speed_log_hash'] = match_speed_hash
-                        print(match_hash)
+                        # print(match_hash)
                 except Exception as err:
                     print("Ошибка")
                     print(match_hash)
@@ -180,7 +185,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.527    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.528    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
