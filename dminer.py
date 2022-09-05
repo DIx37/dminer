@@ -19,7 +19,7 @@ logger.addHandler(handler)
 
 
 # Вызов nvidia-smi для получения всей информаци об видеокартах
-def get_videocard():
+def get_videocard(gpu_json):
     res = os.system("nvidia-smi -x -q > /home/user/dminer/xml/nvidia.xml")
     if res != 0:
         print("Ошибка при выполнении команды 'nvidia-smi -x -q', проверьте её вывод. Завершение скрипта.")
@@ -191,7 +191,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.538    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.539    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
