@@ -157,7 +157,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.513    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.514    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
@@ -238,6 +238,8 @@ def screen(gpu_json, log_trex, log_gminer):
 #        enforced_power_limit = gpu_json['GPU'][gpu]['power_readings']['enforced_power_limit']
 #        min_power_limit = gpu_json['GPU'][gpu]['power_readings']['min_power_limit']
 #        max_power_limit = gpu_json['GPU'][gpu]['power_readings']['max_power_limit']
+        if ('speed_log_hash' in gpu_json) == False:
+            gpu_json['speed_log_hash'] = 0
         speed_log_hash = gpu_json['GPU'][gpu]['speed_log_hash']
 
         th = [
