@@ -50,9 +50,11 @@ def processes_check(gpu):
 
 def speed_log_hash_check(gpu_json, gpu):
     try:
+        print(gpu)
         speed_log_hash = gpu_json['GPU'][gpu]['speed_log_hash']
     except Exception as err:
         logger.exception(err)
+        logger.debug(gpu)
         speed_log_hash = 0
     return speed_log_hash
 
@@ -189,7 +191,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.535    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.536    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
