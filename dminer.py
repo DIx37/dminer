@@ -129,7 +129,7 @@ def read_log_gminer(gpu_json):
             gpu_json['number_line_log_gminer'] = i
             # match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
             # |  0    1060  26.27 MH/s  0/0/0    N/A    96 W  273.65 KH/W |
-            match_hash = re.findall('\|.*MH', str(line)).split()
+            match_hash = re.findall('\|.*MH', str(line))[0].split()
             if len(match_hash) > 0:
                 # match_number_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
                 # match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
@@ -149,7 +149,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.505    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.506    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
