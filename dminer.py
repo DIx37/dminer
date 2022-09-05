@@ -159,8 +159,10 @@ def read_log_gminer(gpu_json):
                     match_number_gpu = match_hash[1]
                     match_speed_hash = f"{match_hash[3]} {match_hash[4]}/s"
                     gpu_json['GPU'][match_number_gpu]['speed_log_hash'] = match_speed_hash
-                except:
-                    pass
+                except Exception as err:
+                    print("Ошибка")
+                    print(err)
+                    sleep(5)
 
     f = open('/var/log/miner/gminer/gminer.log')
     for line in f:
@@ -175,7 +177,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.522    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.523    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
