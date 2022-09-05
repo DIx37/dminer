@@ -32,11 +32,11 @@ def processes_check(gpu):
                     }
     except:
         processes = {
-                     'gpu_instance_id': None,
-                     'compute_instance_id': None,
-                     'pid': None,
-                     'type': None,
-                     'process_name': None
+                     'gpu_instance_id': "None",
+                     'compute_instance_id': "None",
+                     'pid': "None",
+                     'type': "None",
+                     'process_name': "None"
                     }
     return processes
 
@@ -173,7 +173,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.518    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.519    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
