@@ -154,7 +154,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.510    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.511    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
@@ -302,6 +302,6 @@ gpu_json = {}
 while True:
     gpu_json = get_videocard()
     log_trex, gpu_json = read_log_trex(gpu_json)
-    log_gminer = read_log_gminer(gpu_json)
+    log_gminer, gpu_json = read_log_gminer(gpu_json)
     screen(gpu_json, log_trex, log_gminer)
     sleep(10)
