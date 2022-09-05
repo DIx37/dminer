@@ -155,7 +155,7 @@ def read_log_gminer():
     for line in f:
         log += line
     log_split = log.split("\n")
-    logs = log_split[-10:]
+    logs = log_split[-15:]
     for l in logs:
        res += f"{l}\n"
     return res
@@ -164,7 +164,7 @@ def read_log_gminer():
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.503    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.504    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
