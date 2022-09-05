@@ -21,6 +21,26 @@ def get_videocard():
     return gpu_json
 
 
+def processes_check(gpu):
+    try:
+        processes = {
+                     'gpu_instance_id': gpu.find('processes')[1].find('gpu_instance_id').text,
+                     'compute_instance_id': gpu.find('processes')[1].find('compute_instance_id').text,
+                     'pid': gpu.find('processes')[1].find('pid').text,
+                     'type': gpu.find('processes')[1].find('type').text,
+                     'process_name': gpu.find('processes')[1].find('process_name').text
+                    }
+    except:
+        processes = {
+                     'gpu_instance_id': None,
+                     'compute_instance_id': None,
+                     'pid': None,
+                     'type': None,
+                     'process_name': None
+                    }
+    return processes
+
+
 # Преобразование полученного xml в json
 def get_list_videocard():
     tree = ET.parse("/home/user/dminer/xml/nvidia.xml")
@@ -78,13 +98,7 @@ def get_list_videocard():
                                                              'mem_clock': gpu.find('clocks').find('mem_clock').text,
                                                              'video_clock': gpu.find('clocks').find('video_clock').text
                                                             },
-                                                  'processes': {
-                                                                'gpu_instance_id': gpu.find('processes')[1].find('gpu_instance_id').text,
-                                                                'compute_instance_id': gpu.find('processes')[1].find('compute_instance_id').text,
-                                                                'pid': gpu.find('processes')[1].find('pid').text,
-                                                                'type': gpu.find('processes')[1].find('type').text,
-                                                                'process_name': gpu.find('processes')[1].find('process_name').text
-                                                               },
+                                                  'processes': processes_check(gpu),
                                                   }
     return gpu_json
 
@@ -160,7 +174,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.516    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.517    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
