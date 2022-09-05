@@ -13,14 +13,14 @@ import re
 
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(filename=f'{__name__}.log', level=logging.DEBUG)
 handler = StreamHandler(stream=sys.stdout)
 handler.setFormatter(Formatter(fmt='[%(asctime)s: %(levelname)s] %(message)s'))
 logger.addHandler(handler)
+logging.basicConfig(filename='dminer.log', level=logging.DEBUG)
+
 
 # Вызов nvidia-smi для получения всей информаци об видеокартах
 def get_videocard():
-#    print("Проверка списка видеокарт")
     res = os.system("nvidia-smi -x -q > /home/user/dminer/xml/nvidia.xml")
     if res != 0:
         print("Ошибка при выполнении команды 'nvidia-smi -x -q', проверьте её вывод. Завершение скрипта.")
@@ -39,6 +39,7 @@ def processes_check(gpu):
                      'process_name': gpu.find('processes')[1].find('process_name').text
                     }
     except:
+        logger.exception(err)
         processes = {
                      'gpu_instance_id': "None",
                      'compute_instance_id': "None",
@@ -132,7 +133,7 @@ def read_log_trex(gpu_json):
                 try:
                     gpu_json['GPU'][match_number_gpu]['speed_log_hash'] = match_speed_hash
                 except:
-                    pass
+                    logger.exception(err)
 
     f = open('/var/log/miner/t-rex/t-rex.log')
     for line in f:
@@ -141,6 +142,7 @@ def read_log_trex(gpu_json):
     logs = log_split[-15:]
     for l in logs:
        res += f"{l}\n"
+
     return res, gpu_json
 
 
@@ -150,31 +152,20 @@ def read_log_gminer(gpu_json):
     res = ""
     if ('number_line_log_gminer' in gpu_json) == False:
         gpu_json['number_line_log_gminer'] = 0
-        print("Не нашёл gpu_json['number_line_log_gminer']")
-        sleep(5)
     for i, line in enumerate(f):
         if i > gpu_json['number_line_log_gminer']:
             gpu_json['number_line_log_gminer'] = i
-            # match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
-            # |  0    1060  26.27 MH/s  0/0/0    N/A    96 W  273.65 KH/W |
             match_hash = re.findall('\|.*MH', str(line))
             if len(match_hash) > 0:
-                # match_number_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
-                # match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
                 match_hash = match_hash[0].split()
-                # print(match_hash)
                 try:
                     if match_hash[2] != "MH":
                         match_number_gpu = match_hash[1]
                         match_speed_hash = f"{match_hash[3]} {match_hash[4]}/s"
                         logger.debug(f"Записываем найденную скорость {match_speed_hash} к GPU #{match_number_gpu}")
                         gpu_json['GPU'][match_number_gpu]['speed_log_hash'] = match_speed_hash
-                        # print(match_hash)
                 except Exception as err:
-                    print("Ошибка")
-                    print(match_hash)
-                    print(err)
-                    sleep(5)
+                    logger.exception(err)
 
     f = open('/var/log/miner/gminer/gminer.log')
     for line in f:
@@ -183,13 +174,14 @@ def read_log_gminer(gpu_json):
     logs = log_split[-15:]
     for l in logs:
        res += f"{l}\n"
+
     return res, gpu_json
 
 
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.532    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.533    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
@@ -270,8 +262,8 @@ def screen(gpu_json, log_trex, log_gminer):
 #        enforced_power_limit = gpu_json['GPU'][gpu]['power_readings']['enforced_power_limit']
 #        min_power_limit = gpu_json['GPU'][gpu]['power_readings']['min_power_limit']
 #        max_power_limit = gpu_json['GPU'][gpu]['power_readings']['max_power_limit']
-        if ('speed_log_hash' in gpu_json['GPU'][gpu]) == False:
-            gpu_json['GPU'][gpu]['speed_log_hash'] = 0
+        # if ('speed_log_hash' in gpu_json) == False:
+        #     gpu_json['GPU'][gpu]['speed_log_hash'] = 0
         speed_log_hash = gpu_json['GPU'][gpu]['speed_log_hash']
 
         th = [
@@ -345,5 +337,4 @@ while True:
         screen(gpu_json, log_trex, log_gminer)
         sleep(10)
     except Exception as err:
-        print("Ошибка:")
-        print(err)
+        logger.exception(err)
