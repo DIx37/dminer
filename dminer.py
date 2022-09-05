@@ -107,7 +107,11 @@ def read_log_trex(gpu_json):
             if len(match_hash) > 0:
                 match_number_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
                 match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
-                gpu_json['GPU'][match_number_gpu]['speed_log_hash'] = match_speed_hash
+                try:
+                    gpu_json['GPU'][match_number_gpu]['speed_log_hash'] = match_speed_hash
+                except:
+                    print(gpu_json['GPU'])
+                    sleep(5)
 
     f = open('/var/log/miner/t-rex/t-rex.log')
     for line in f:
@@ -156,7 +160,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.515    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.516    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
