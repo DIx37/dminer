@@ -51,7 +51,7 @@ def processes_check(gpu):
 def speed_log_hash_check(gpu_json, gpu):
     try:
         print(gpu)
-        speed_log_hash = gpu_json['GPU'][gpu]['speed_log_hash']
+        speed_log_hash = gpu_json['GPU'][str(gpu)]['speed_log_hash']
     except Exception as err:
         logger.exception(err)
         logger.debug(gpu)
