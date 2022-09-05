@@ -1,3 +1,4 @@
+from msilib.schema import Error
 from prettytable import PrettyTable
 import xml.etree.ElementTree as ET
 from termcolor import colored
@@ -173,7 +174,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.519    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.520    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
@@ -294,35 +295,40 @@ def screen(gpu_json, log_trex, log_gminer):
     print(table)
 
     if trex == True and gminer == True:
-        td_log = ['T-Rex', 'GMiner']
-    elif trex == True:
-        td_log = ['T-Rex']
-    elif gminer == True:
-        td_log = ['GMiner']
-    table_log = PrettyTable(td_log)
-    if trex == True and gminer == True:
-        th_log = [log_trex, log_gminer]
-    elif trex == True:
-        th_log = [log_trex]
-    elif gminer == True:
-        th_log = [log_gminer]
-    table_log.add_row(th_log)
-    if trex == True and gminer == True:
-        table_log.align['T-Rex'] = "l"
-        table_log.align['GMiner'] = "l"
-    elif trex == True:
-        table_log.align['T-Rex'] = "l"
-    elif gminer == True:
-        table_log.align['GMiner'] = "l"
+        if trex == True and gminer == True:
+            td_log = ['T-Rex', 'GMiner']
+        elif trex == True:
+            td_log = ['T-Rex']
+        elif gminer == True:
+            td_log = ['GMiner']
+        table_log = PrettyTable(td_log)
+        if trex == True and gminer == True:
+            th_log = [log_trex, log_gminer]
+        elif trex == True:
+            th_log = [log_trex]
+        elif gminer == True:
+            th_log = [log_gminer]
+        table_log.add_row(th_log)
+        if trex == True and gminer == True:
+            table_log.align['T-Rex'] = "l"
+            table_log.align['GMiner'] = "l"
+        elif trex == True:
+            table_log.align['T-Rex'] = "l"
+        elif gminer == True:
+            table_log.align['GMiner'] = "l"
 
-    print(table_log)
+        print(table_log)
         
 
 gpu_json = {}
 
 while True:
-    gpu_json = get_videocard()
-    log_trex, gpu_json = read_log_trex(gpu_json)
-    log_gminer, gpu_json = read_log_gminer(gpu_json)
-    screen(gpu_json, log_trex, log_gminer)
-    sleep(10)
+    try:
+        gpu_json = get_videocard()
+        log_trex, gpu_json = read_log_trex(gpu_json)
+        log_gminer, gpu_json = read_log_gminer(gpu_json)
+        screen(gpu_json, log_trex, log_gminer)
+        sleep(10)
+    except Exception as err:
+        print("Ошибка:")
+        print(err)
