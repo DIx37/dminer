@@ -173,7 +173,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.520    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.521    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
@@ -293,7 +293,7 @@ def screen(gpu_json, log_trex, log_gminer):
 
     print(table)
 
-    if trex == True and gminer == True:
+    if trex == True or gminer == True:
         if trex == True and gminer == True:
             td_log = ['T-Rex', 'GMiner']
         elif trex == True:
