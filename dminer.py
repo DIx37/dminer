@@ -32,7 +32,6 @@ def get_list_videocard():
     gpu_all = root.findall('gpu')
     for gpu in gpu_all:
         gpu_json['GPU'][gpu.find('minor_number').text] = {
-                                                  'speed_log_trex': 0,
                                                   'minor_number': gpu.find('minor_number').text,
                                                   'product_name': gpu.find('product_name').text,
                                                   'vbios_version': gpu.find('vbios_version').text,
@@ -231,9 +230,13 @@ def screen(gpu_json, log_trex, log_gminer):
         if "rex" in process_name:
             trex = True
             process_name = "T-Rex"
+        else:
+            trex = False
         if "gminer" in process_name:
             gminer = True
             process_name = "GMiner"
+        else:
+            gminer = False
         power_state = gpu_json['GPU'][gpu]['power_readings']['power_state']
 #        power_management = gpu_json['GPU'][gpu]['power_readings']['power_management']
         power_draw = gpu_json['GPU'][gpu]['power_readings']['power_draw']
