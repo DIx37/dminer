@@ -95,8 +95,6 @@ def count_lines(file, chunk_size=1<<13):
 
 
 def read_log_trex(gpu_json):
-    # f = open('/var/log/miner/t-rex/t-rex.log')
-    # print(count_lines(f))
     f = open('/var/log/miner/t-rex/t-rex.log')
     log = ""
     res = ""
@@ -106,65 +104,52 @@ def read_log_trex(gpu_json):
         if i > gpu_json['number_line_log_trex']:
             gpu_json['number_line_log_trex'] = i
             match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
-            # print(match_hash)
             if len(match_hash) > 0:
                 match_number_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
                 match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
-                gpu_json['GPU'][match_number_gpu]['speed_log_trex'] = match_speed_hash
-    # numner_gpu = {
-    #               "0": 0,
-    #               "1": 0,
-    #               "2": 0,
-    #               "3": 0,
-    #               "4": 0,
-    #               "5": 0,
-    #               "6": 0,
-    #               "7": 0,
-    #               "8": 0,
-    #               "9": 0,
-    #               "10": 0,
-    #               "11": 0
-    #              }
-    # for i, line in enumerate(f):
-    #     if i > gpu_json['number_line_log_trex']:
-    #         match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
-    #         if len(match_hash) > 0:
-                # match_numner_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
-                # match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
-                # numner_gpu[match_numner_gpu] = match_speed_hash
-                # gpu_json['number_line_log_trex'] = i
-    #     else:
-    #         print("Лог уже прочитан")
-    #         print(f"Сейчас i:{i} GPU:{gpu_json['number_line_log_trex']}")
-    #         sleep(10)
+                gpu_json['GPU'][match_number_gpu]['speed_log_hash'] = match_speed_hash
 
-    for line in f:
-        log += line
-    log_split = log.split("\n")
-    logs = log_split[-35:]
-    for l in logs:
-       res += f"{l}\n"
-    return res, gpu_json
-
-
-def read_log_gminer():
-    f = open('/var/log/miner/gminer/gminer.log')
-#    f = open('/home/user/test/gminer.log')
-    log = ""
-    res = ""
     for line in f:
         log += line
     log_split = log.split("\n")
     logs = log_split[-15:]
     for l in logs:
        res += f"{l}\n"
-    return res
+    return res, gpu_json
+
+
+def read_log_gminer(gpu_json):
+    f = open('/var/log/miner/gminer/gminer.log')
+    log = ""
+    res = ""
+    if ('number_line_log_gminer' in gpu_json) == False:
+        gpu_json['number_line_log_gminer'] = 0
+    for i, line in enumerate(f):
+        if i > gpu_json['number_line_log_gminer']:
+            gpu_json['number_line_log_gminer'] = i
+            # match_hash = re.findall('GPU #.*: .* - .* MH', str(line))
+            # |  0    1060  26.27 MH/s  0/0/0    N/A    96 W  273.65 KH/W |
+            match_hash = re.findall('\|.*MH', str(line)).split()
+            if len(match_hash) > 0:
+                # match_number_gpu = re.findall('#.*:', str(match_hash))[0][1:-1]
+                # match_speed_hash = re.findall(' - .* MH', str(match_hash))[0][3:] + "/s"
+                match_number_gpu = match_hash[1]
+                match_speed_hash = f"{match_hash[3]} {match_hash[4]}/s"
+                gpu_json['GPU'][match_number_gpu]['speed_log_hash'] = match_speed_hash
+
+    for line in f:
+        log += line
+    log_split = log.split("\n")
+    logs = log_split[-15:]
+    for l in logs:
+       res += f"{l}\n"
+    return res, gpu_json
 
 
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.504    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.505    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
@@ -195,7 +180,8 @@ def screen(gpu_json, log_trex, log_gminer):
         #   'default_power_limit',
         #   'enforced_power_limit',
         #   'min_power_limit',
-        #   'max_power_limit'
+        #   'max_power_limit',
+          'SHash',
          ]
 
     table = PrettyTable(td)
@@ -244,6 +230,7 @@ def screen(gpu_json, log_trex, log_gminer):
 #        enforced_power_limit = gpu_json['GPU'][gpu]['power_readings']['enforced_power_limit']
 #        min_power_limit = gpu_json['GPU'][gpu]['power_readings']['min_power_limit']
 #        max_power_limit = gpu_json['GPU'][gpu]['power_readings']['max_power_limit']
+        speed_log_hash = gpu_json['GPU'][gpu]['speed_log_hash']
 
         th = [
               minor_number,
@@ -274,6 +261,7 @@ def screen(gpu_json, log_trex, log_gminer):
 #              enforced_power_limit,
 #              min_power_limit,
 #              max_power_limit,
+              speed_log_hash
              ]
         table.add_row(th)
 
@@ -309,6 +297,6 @@ gpu_json = {}
 while True:
     gpu_json = get_videocard()
     log_trex, gpu_json = read_log_trex(gpu_json)
-    log_gminer = read_log_gminer()
+    log_gminer = read_log_gminer(gpu_json)
     screen(gpu_json, log_trex, log_gminer)
     sleep(10)
