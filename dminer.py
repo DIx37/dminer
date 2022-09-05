@@ -89,9 +89,9 @@ def get_list_videocard():
     return gpu_json
 
 
-def count_lines(file, chunk_size=1<<13):
-    return sum(chunk.count('\n')
-            for chunk in iter(lambda: file.read(chunk_size), ''))
+# def count_lines(file, chunk_size=1<<13):
+#     return sum(chunk.count('\n')
+#             for chunk in iter(lambda: file.read(chunk_size), ''))
 
 
 def read_log_trex(gpu_json):
@@ -124,6 +124,8 @@ def read_log_gminer(gpu_json):
     res = ""
     if ('number_line_log_gminer' in gpu_json) == False:
         gpu_json['number_line_log_gminer'] = 0
+    if ('speed_log_hash' in gpu_json) == False:
+        gpu_json['speed_log_hash'] = 0
     for i, line in enumerate(f):
         if i > gpu_json['number_line_log_gminer']:
             gpu_json['number_line_log_gminer'] = i
@@ -155,7 +157,7 @@ def read_log_gminer(gpu_json):
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.512    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
+    print(f"DIx Miner v0.513    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}")
 
     td = [
           '№',
