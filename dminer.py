@@ -164,7 +164,7 @@ def read_log_gminer():
 def screen(gpu_json, log_trex, log_gminer):
     os.system("clear")
 
-    print(f"DIx Miner v0.500    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}    T-Rex лог: {gpu_json['number_line_log_trex']}")
+    print(f"DIx Miner v0.501    Время: {gpu_json['timestamp']}    Версия драйвера: {gpu_json['driver_version']}    Версия CUDA: {gpu_json['cuda_version']}    T-Rex лог: {gpu_json['number_line_log_trex']}")
 
     td = [
           '№',
@@ -192,11 +192,10 @@ def screen(gpu_json, log_trex, log_gminer):
 #          'power_management',
           'Power',
           'Limit',
-#          'default_power_limit',
-#          'enforced_power_limit',
-#          'min_power_limit',
-#          'max_power_limit',
-         'TRex Hash'
+        #   'default_power_limit',
+        #   'enforced_power_limit',
+        #   'min_power_limit',
+        #   'max_power_limit'
          ]
 
     table = PrettyTable(td)
@@ -208,20 +207,20 @@ def screen(gpu_json, log_trex, log_gminer):
         minor_number = gpu_json['GPU'][gpu]['minor_number']
         product_name = gpu_json['GPU'][gpu]['product_name'][15:]
         # product_name = gpu_json['GPU'][gpu]['product_name']
-#        vbios_version = gpu_json['GPU'][gpu]['vbios_version']
-#        fan_speed = gpu_json['GPU'][gpu]['fan_speed']
-#        fb_memory_usage_total = gpu_json['GPU'][gpu]['fb_memory_usage']['total']
-#        fb_memory_usage_reserved = gpu_json['GPU'][gpu]['fb_memory_usage']['reserved']
+        # vbios_version = gpu_json['GPU'][gpu]['vbios_version']
+        # fan_speed = gpu_json['GPU'][gpu]['fan_speed']
+        # fb_memory_usage_total = gpu_json['GPU'][gpu]['fb_memory_usage']['total']
+        # fb_memory_usage_reserved = gpu_json['GPU'][gpu]['fb_memory_usage']['reserved']
         fb_memory_usage_used = gpu_json['GPU'][gpu]['fb_memory_usage']['used']
-#        fb_memory_usage_free = gpu_json['GPU'][gpu]['fb_memory_usage']['free']
+        # fb_memory_usage_free = gpu_json['GPU'][gpu]['fb_memory_usage']['free']
         gpu_util = gpu_json['GPU'][gpu]['utilization']['gpu_util']
         memory_util = gpu_json['GPU'][gpu]['utilization']['memory_util']
         gpu_temp = gpu_json['GPU'][gpu]['temperature']['gpu_temp']
-#        gpu_target_temperature = gpu_json['GPU'][gpu]['temperature']['gpu_target_temperature']
-#        gpu_temp_max_threshold = gpu_json['GPU'][gpu]['temperature']['gpu_temp_max_threshold']
-#        gpu_temp_slow_threshold = gpu_json['GPU'][gpu]['temperature']['gpu_temp_slow_threshold']
-#        gpu_target_temp_min = gpu_json['GPU'][gpu]['supported_gpu_target_temp']['gpu_target_temp_min']
-#        gpu_target_temp_max = gpu_json['GPU'][gpu]['supported_gpu_target_temp']['gpu_target_temp_max']
+        # gpu_target_temperature = gpu_json['GPU'][gpu]['temperature']['gpu_target_temperature']
+        # gpu_temp_max_threshold = gpu_json['GPU'][gpu]['temperature']['gpu_temp_max_threshold']
+        # gpu_temp_slow_threshold = gpu_json['GPU'][gpu]['temperature']['gpu_temp_slow_threshold']
+        # gpu_target_temp_min = gpu_json['GPU'][gpu]['supported_gpu_target_temp']['gpu_target_temp_min']
+        # gpu_target_temp_max = gpu_json['GPU'][gpu]['supported_gpu_target_temp']['gpu_target_temp_max']
         graphics_clock = gpu_json['GPU'][gpu]['clocks']['graphics_clock']
 #        sm_clock = gpu_json['GPU'][gpu]['clocks']['sm_clock']
         mem_clock = gpu_json['GPU'][gpu]['clocks']['mem_clock']
@@ -245,7 +244,6 @@ def screen(gpu_json, log_trex, log_gminer):
 #        enforced_power_limit = gpu_json['GPU'][gpu]['power_readings']['enforced_power_limit']
 #        min_power_limit = gpu_json['GPU'][gpu]['power_readings']['min_power_limit']
 #        max_power_limit = gpu_json['GPU'][gpu]['power_readings']['max_power_limit']
-        speed_log_trex = gpu_json['GPU'][gpu]['speed_log_trex']
 
         th = [
               minor_number,
@@ -276,7 +274,6 @@ def screen(gpu_json, log_trex, log_gminer):
 #              enforced_power_limit,
 #              min_power_limit,
 #              max_power_limit,
-              speed_log_trex
              ]
         table.add_row(th)
 
